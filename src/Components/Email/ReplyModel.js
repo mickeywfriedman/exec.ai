@@ -1,7 +1,8 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Base64 } from "js-base64";
 import { MdReplay } from "react-icons/md";
 import PropTypes from "prop-types";
+import axios from "axios";
 import {
   Button,
   Modal,
@@ -18,9 +19,55 @@ import {
   useDisclosure,
 } from "@chakra-ui/core";
 
+
+
+
+const UI_PARAMS_API_URL = "/params";
+const TRANSLATE_API_URL = "/translate";
+const EXAMPLE_API_URL = "/examples";
+
+const API_KEY = "sk-EKrntNFyXHPnv3kGxLHxgSnA2wJPRyzP0zgkx3A7";
+
+const OpenAI = require('openai-api');
+const openai = new OpenAI(API_KEY);
+
+const preface = "I am a highly intelligent question answering bot. If you ask me a question that is rooted in truth, I will give you the answer. If you ask me a question that is nonsense, trickery, or has no clear answer, I will respond with 'Unknown'.\
+\
+Q: What is human life expectancy in the United States?\
+A: 78 years.\
+\
+Q: Who was president of the United States in 1955?\
+A: Dwight D. Eisenhower.\
+\
+Q: Which party did he belong to?\
+A: He belonged to the Republican Party.\
+\
+Q: What is the square root of banana?\
+A: Unknown\
+\
+Q: How does a telescope work?\
+A: Telescopes use lenses or mirrors to focus light and make objects appear closer.\
+\
+Q: Where were the 1992 Olympics held?\
+A: Barcelona, Spain.\
+\
+Q: How many squigs are in a bonk?\
+A: Unknown\
+\
+Q: What is the revenue of General Motors?\
+A: $150.8 billion.\
+\
+Q: What is the market cap of 3M?\
+A: $93.8 billion.\
+\
+"
+
+const NUM_TOKENS = 250;
+
 const ReplyModel = ({ replayData }) => {
 
-
+  const [input, setInput] = useState('');
+  const [message, setMessage, examples] = useState('');
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
 
@@ -31,9 +78,9 @@ const ReplyModel = ({ replayData }) => {
     const subject = form.elements["subject"].value;
     const replayMsgId = form.elements["reply-message-id"].value;
     const message = form.elements["message"].value;
-  
 
-    // Send Replay
+
+      // Send Replay
     sendMessage(
       {
         To: emailTo,
@@ -43,6 +90,9 @@ const ReplyModel = ({ replayData }) => {
       message,
       displayToast
     );
+
+    setInput('');
+    setMessage('');
 
     onClose();
   };
@@ -65,6 +115,58 @@ const ReplyModel = ({ replayData }) => {
 
     request.execute(callback);
   };
+
+
+
+  const _callAPI = (input) =>{
+
+    (async () => {
+ const gptResponse = await openai.complete({
+    engine: 'davinci',
+    prompt: preface + input,
+    maxTokens: 5,
+    temperature: 0.9,
+    topP: 1,
+    presence_penalty: 0,
+    frequency_penalty: 0,
+    best_of: 1,
+    n: 1,
+    stream: false,
+    stop: ['\n', "testing"]
+  });
+  
+  const text = JSON.stringify(gptResponse.data.choices[0].text.trim());
+
+  get_x_of_y(text)
+  console.log(text) //THIS IS WHAT NEEDS TO BE OUTPUTTED IN HTE FIRST TEXT AREA
+
+  //return gptResponse.data.choices[0].text.trim()
+  //console.log(gptResponse.data.choices[0].text.trim()) 
+})
+
+
+    ();
+
+
+
+};
+
+ const get_x_of_y = (input) => {
+ 
+ console.log("input")
+ return input 
+}
+
+
+
+  //return _callAPI(prompt);
+  //console.log(_callAPI(prompt))
+  
+
+ // let responseText = response.choices[0].text.trim()
+  //console.log(response, "ha")
+  //return response;
+//}
 
   const displayToast = ({ result }) => {
     if (result.labelIds.indexOf("SENT") !== -1) {
@@ -139,23 +241,26 @@ const ReplyModel = ({ replayData }) => {
                   minH='250px'
                   size='xl'
                   resize='vertical'
+                  value={message}
                 />
               </FormControl>
 
-              <FormControl isRequired>
+              <FormControl>
                 <Textarea
                   id='gpt3-input'
-                  placeholder=' Type here (.i.e. "Reschedule meeting, sick, Thursday at 9 pm")' 
+                  placeholder=' Type here (.i.e. "Reschedule meeting, sick, Thursday at 9 pm")'
                   minH='100px'
                   size='xl'
                   resize='vertical'
+                  value={input}
+                  onChange={(e) => { setInput(e.target.value) }}
                 />
               </FormControl>
             </ModalBody>
 
             <ModalFooter>
-              <Button type='reset' variantColor='blue' mr={3} onClick={onClose}>
-                Close
+              <Button type='reset' variantColor='blue' mr={3} onClick={() => {setMessage(_callAPI(input)); }}>
+                Generate
               </Button>
               <Button type='submit' variantColor='green'>
                 Send
