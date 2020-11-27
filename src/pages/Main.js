@@ -1,5 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import EmailContext from "../context/email/emailContext"
+import Particles from 'react-particles-js';
 
 // Import Components
 import MailboxList from "../Components/MailboxList/MailboxList";
@@ -23,7 +24,7 @@ const Main = () => {
       justify='space-arround'
       wrap='no-wrap'
       p='3em'
-      bg='#001745'
+      bg='#e2dada'
       color='white'
     >
       <MailboxList />

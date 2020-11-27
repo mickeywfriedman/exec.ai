@@ -7,19 +7,184 @@ import ForwardModel from "./ForwardModel";
 import { getHeader, removeQuote, formatDate } from "../Helper"; // Helper functions
 import { Base64 } from "js-base64";
 import { MdArchive } from "react-icons/md"; // Icons
+import car from './thumb.png'
+import cat from './hello.png'
+import can from './um.png'
+import cab from './grk.jpg'
 import {
   Flex,
   Box,
   Button,
+  Badge,
+  Image,
+  Icon,
   AspectRatioBox,
   Avatar,
+  Stack,
   Text,
   useToast,
+  useColorMode,
   Heading,
 } from "@chakra-ui/core";
 
 import emptyEmailImg from "./empty_email.svg";
 
+const JobCard = () => {
+  const { colorMode } = useColorMode();
+  const bgColor = { light: 'gray.200', dark: 'gray.700' };
+  const textColor = { light: 'gray.500', dark: 'gray.100' };
+
+  return (
+    <Box
+
+    justify='left'
+    alignItems='left'
+     margin = '20px'
+
+      w='250px'
+      rounded='5px'
+      overflow='hidden'
+      boxShadow='lg'
+      bg='#eadada'>
+     <img
+      src={car}
+      alt='React Logo'/>
+      <Box p={2}>
+        
+        <Box textAlign='center'>
+          <Button
+            bg='#d1c2c2'
+            size='md'
+            rounded='10px'
+            mt={1}
+            boxShadow='sm'
+            _hover={{ boxShadow: 'md' }}
+            _active={{ boxShadow: 'lg' }}>
+            Job Search
+          </Button>
+        </Box>
+      </Box>
+    </Box>
+  );
+};
+
+
+const WorkCard = () => {
+  const { colorMode } = useColorMode();
+  const bgColor = { light: 'gray.200', dark: 'gray.700' };
+  const textColor = { light: 'gray.500', dark: 'gray.100' };
+
+  return (
+    <Box
+
+    justify='left'
+    alignItems='left'
+
+      w='250px'
+      rounded='5px'
+      overflow='hidden'
+      boxShadow='lg'
+      margin-right = '40px'
+      bg='#eadada'>
+     <img
+      src={cab}
+      alt='React Logo'/>
+      <Box p={2}>
+        
+        <Box textAlign='center'>
+          <Button
+            bg='#d1c2c2'
+            size='md'
+            rounded='10px'
+            mt={1}
+            boxShadow='sm'
+            _hover={{ boxShadow: 'md' }}
+            _active={{ boxShadow: 'lg' }}>
+            Work 
+          </Button>
+        </Box>
+      </Box>
+    </Box>
+    
+  );
+};
+const PersonalCard = () => {
+  const { colorMode } = useColorMode();
+  const bgColor = { light: 'gray.200', dark: 'gray.700' };
+  const textColor = { light: 'gray.500', dark: 'gray.100' };
+
+  return (
+    <Box
+
+    justify='left'
+    alignItems='left'
+
+      w='250px'
+      rounded='5px'
+      overflow='hidden'
+      boxShadow='lg'
+      margin-right = '40px'
+      bg='#eadada'>
+     <img
+      src={can}
+      alt='React Logo'/>
+      <Box p={2}>
+        
+        <Box textAlign='center'>
+          <Button
+            bg='#d1c2c2'
+            textColor = '#fff'
+            size='sm'
+            rounded='10px'
+            mt={1}
+            boxShadow='sm'
+            _hover={{ boxShadow: 'md' }}
+            _active={{ boxShadow: 'lg' }}>
+            Friends and Family
+          </Button>
+        </Box>
+      </Box>
+    </Box>
+  );
+};
+const ScheduleCard = () => {
+  const { colorMode } = useColorMode();
+  const bgColor = { light: 'gray.200', dark: 'gray.700' };
+  const textColor = { light: 'gray.500', dark: 'gray.100' };
+
+  return (
+    <Box
+
+    justify='right'
+    alignItems='right'
+
+      w='250px'
+      margin = '20px'
+      rounded='5px'
+      overflow='hidden'
+      boxShadow='lg'
+      bg='#eadada'>
+     <img
+      src={cat}
+      alt='React Logo'/>
+      <Box p={2}>
+        
+        <Box textAlign='center'>
+          <Button
+            bg='#d1c2c2'
+            size='md'
+            rounded='10px'
+            mt={1}
+            boxShadow='sm'
+            _hover={{ boxShadow: 'md' }}
+            _active={{ boxShadow: 'lg' }}>
+            Scheduling!
+          </Button>
+        </Box>
+      </Box>
+    </Box>
+  );
+};
 const Email = () => {
   const { message } = useContext(EmailContext);
   const headers = message ? message.payload.headers : [];
@@ -31,6 +196,8 @@ const Email = () => {
     }
     // eslint-disable-next-line
   }, [message]);
+
+
 
   const formatReplayData = (headers) => {
     const replayTo =
@@ -225,6 +392,8 @@ const Email = () => {
 export default Email;
 
 const EmptyMail = () => (
+
+
   <Flex
     flexDirection='column'
     justify='center'
@@ -232,13 +401,30 @@ const EmptyMail = () => (
     mb={3}
     style={{ height: "100%" }}
   >
-    <img
-      src={emptyEmailImg}
-      alt='React Logo'
-      style={{ width: "40%", height: "auto" }}
-    />
-    <Heading as='h3' size='lg' color='#a6b0b7' mt={5}>
-      Click on Email to Open it
+
+
+   <Heading as='h3' size='lg' color='#a6b0b7' mt={3}>
+      Choose the Tye of Email You'd Like to Write
     </Heading>
+        <Flex
+    flexDirection='row'
+    justify='center'
+    alignItems='center'
+    mb={6}
+    style={{ height: "100%" }}
+  >
+    <PersonalCard/>  <ScheduleCard/> 
+    </Flex>
+    <Flex
+    flexDirection='row'
+    justify='center'
+    alignItems='center'
+    mb={3}
+    style={{ height: "100%" }}
+  >
+    <WorkCard/> <JobCard/>  
+    </Flex>
+
+   
   </Flex>
 );

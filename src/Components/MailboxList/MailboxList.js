@@ -22,9 +22,9 @@ const MailboxList = () => {
 
   return (
     <Box
-      w='16%'
+      w='12.5%'
       h='100%'
-      bg='white'
+      bg='#ccbaba'
       border='1px'
       borderColor='gray.200'
       borderTopLeftRadius='md'
@@ -43,9 +43,9 @@ const MailboxList = () => {
             w='100%'
             h='45px'
             py={2}
-            pl={8}
+            pl={3}
             leftIcon={MdLabel}
-            variantColor='blue'
+            bg='#73242442'
             variant={active === "IMPORTANT" ? "solid" : "ghost"}
             justifyContent='flex-start'
             onClick={handleClick}
@@ -58,9 +58,9 @@ const MailboxList = () => {
             w='100%'
             h='45px'
             py={2}
-            pl={8}
+            pl={3}
             leftIcon={MdInbox}
-            variantColor='blue'
+            variantColor='white'
             variant={active === "INBOX" ? "solid" : "ghost"}
             justifyContent='flex-start'
             onClick={handleClick}
@@ -76,9 +76,9 @@ const MailboxList = () => {
             w='100%'
             h='45px'
             py={2}
-            pl={8}
+            pl={3}
             leftIcon={MdPeople}
-            variantColor='blue'
+            variantColor='white'
             variant={active === "CATEGORY_SOCIAL" ? "solid" : "ghost"}
             justifyContent='flxex-start'
             onClick={handleClick}
@@ -92,9 +92,9 @@ const MailboxList = () => {
             w='100%'
             h='45px'
             py={2}
-            pl={8}
+            pl={3}
             leftIcon={MdLoyalty}
-            variantColor='blue'
+            variantColor='white'
             variant={active === "CATEGORY_PROMOTIONS" ? "solid" : "ghost"}
             justifyContent='flxex-start'
             onClick={handleClick}

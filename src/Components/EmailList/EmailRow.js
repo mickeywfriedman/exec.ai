@@ -38,7 +38,7 @@ const EmailRow = ({ message, handleMessageClick }) => {
         <Text fontSize='sm' color='gray.700' isTruncated>
           {name}
         </Text>
-        <Text fontSize='md' fontWeight='bold' color='#3182ce' isTruncated>
+        <Text fontSize='md' fontWeight='bold' color='#7d96ab' isTruncated>
           {subject}
         </Text>
         <Text fontSize='xs' color='gray.500'>

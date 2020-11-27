@@ -87,7 +87,7 @@ const SendModel = () => {
         leftIcon={BsPlusCircle}
         borderRadius='20px'
         variant='solid'
-        variantColor='blue'
+        bg='#ad9898'
         onClick={onOpen}
       >
         New Task

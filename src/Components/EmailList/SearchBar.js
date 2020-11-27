@@ -19,7 +19,7 @@ const SearchBar = () => {
         <IconButton
           icon='search'
           variant='ghost'
-          variantColor='blue'
+          variantColor='gray'
           marginLeft='5px'
           aria-label='Search messages'
           onClick={handleQuery}
